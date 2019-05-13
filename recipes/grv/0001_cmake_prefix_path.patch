@@ -1,0 +1,15 @@
+diff --git a/cmd/grv/vendor/gopkg.in/libgit2/git2go.v27/script/build-libgit2-static.sh b/cmd/grv/vendor/gopkg.in/libgit2/git2go.v27/script/build-libgit2-static.sh
+index 5e01b53..5f683ba 100755
+--- a/cmd/grv/vendor/gopkg.in/libgit2/git2go.v27/script/build-libgit2-static.sh
++++ b/cmd/grv/vendor/gopkg.in/libgit2/git2go.v27/script/build-libgit2-static.sh
+@@ -11,8 +11,10 @@ cd build &&
+ cmake -DTHREADSAFE=ON \
+       -DBUILD_CLAR=OFF \
+       -DBUILD_SHARED_LIBS=OFF \
+       -DCMAKE_C_FLAGS=-fPIC \
+       -DCMAKE_BUILD_TYPE="RelWithDebInfo" \
++      -DCMAKE_PREFIX_PATH=${PREFIX} \
++      -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
+       -DCMAKE_INSTALL_PREFIX=../install \
+       -DUSE_EXT_HTTP_PARSER=OFF \
+       -DUSE_HTTPS=OFF \

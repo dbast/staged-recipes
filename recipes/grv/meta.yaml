@@ -12,6 +12,8 @@ source:
   - folder: {{ pkg_src }}
     url: https://{{ goname }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-src.tar.gz
     sha256: 988788cce5c581531c26df9048e4187440c5ebc9811afd371d565436dfb65d57
+    patches:
+      - 0001_cmake_prefix_path.patch
 
 build:
   number: 0
@@ -25,11 +27,12 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('cgo') }}
+    - {{ compiler('go') }}
     - cmake
     - make
     - pkg-config
   host:
+    - libiconv
     - ncurses
     - readline
   run:

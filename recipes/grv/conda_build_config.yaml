@@ -1,7 +1,2 @@
-cgo_compiler:
-  - go-cgo
-goos:
-  - linux    # [linux]
-  - darwin   # [osx]
-goarch:
-  - amd64
+go_compiler:
+  - go-nocgo
