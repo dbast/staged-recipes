@@ -3,6 +3,7 @@
 
 {% set name = goname.split('/')[-1] %}
 {% set pkg_src = ('src/'+goname).replace("/",os.sep) %}
+{% set posix = 'm2-' if win else '' %}
 
 package:
   name: {{ name|lower }}
@@ -17,31 +18,33 @@ source:
 
 build:
   number: 0
-  # not yet supported by upstream
-  skip: True  # [win]
   script:
     - pushd {{ pkg_src }}
     - make build-only
-    - mv "grv" "$PREFIX/bin"
+    - mv "grv" "$PREFIX/bin"        # [unix]
+    - mv "grv" "%LIBRARY_BIN%\grv"  # [win]
 
 requirements:
   build:
-    - {{ compiler('c') }}
+    - {{ compiler('c') }}           # [unix]
+    - {{ compiler('m2w64_c') }}     # [win]
     - {{ compiler('cgo') }}
     - cmake
-    - make
-    - pkg-config
+    - {{posix}}make
+    - {{posix}}pkg-config
   host:
-    - libiconv
-    - ncurses
-    - readline
+    - {{posix}}ncurses
+    - readline                      # [unix]
+    - {{posix}}libreadline          # [win]
   run:
-    - ncurses
-    - readline
+    - {{posix}}ncurses
+    - readline                      # [unix]
+    - {{posix}}libreadline          # [win]
 
 test:
   commands:
-    - grv -h || true
+    - grv -h || true                # [unix]
+    - grv -h || exit 0              # [win]
 
 about:
   home: https://{{ goname }}

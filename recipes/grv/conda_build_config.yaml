@@ -3,5 +3,6 @@ cgo_compiler:
 goos:
   - linux    # [linux]
   - darwin   # [osx]
+  - windows  # [win]
 goarch:
   - amd64
